@@ -39,6 +39,8 @@
                     <th scope="col">Description</th>
                     <th scope="col">Active/Inactive</th>
                     <th scope="col">Manage</th>
+                    
+
                     </tr>
                 </thead>
                 <tbody>
@@ -55,10 +57,11 @@
                                 @endif
                             </td>
                             <td>
-                                {!! Form::open(['method' => 'DELETE','route'=>['category.destroy', $cate->id]]) !!}
+                                {!! Form::open(['method' => 'DELETE','route'=>['category.destroy', $cate->id], 'onsubmit'=>'return confirm("Xóa?")']) !!}
                                 {!! Form::submit('Xóa', ['class'=> 'btn btn-danger']) !!}
                                 {!! Form::close() !!}
                             </td>
+                            
                         </tr>
                     @endforeach
                 </tbody>

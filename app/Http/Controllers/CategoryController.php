@@ -24,7 +24,9 @@ class CategoryController extends Controller
     public function create()
     {
         $list = Category::all();
-        return view('admincp.category.form', compact('list'));
+        return view('admincp.category.form',[
+            'list'=> $list,
+        ]);
     }
 
     /**
@@ -36,13 +38,12 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $category = new Category();
-        $category->title = $data['title'];
-        $category->description = $data['description'];
-        $category->status = $data['status'];
-        $category->save();
-        return redirect()->back();
-
+        $category = Category::create([
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'status' => $data['status'],
+        ]);
+        
     }
 
     /**
