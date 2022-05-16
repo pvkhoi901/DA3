@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Http\Request\Category\StoreRequest;
 class CategoryController extends Controller
 {
     /**
@@ -43,6 +44,9 @@ class CategoryController extends Controller
             'description' => $data['description'],
             'status' => $data['status'],
         ]);
+        return redirect()->back();
+
+        
         
     }
 
@@ -65,7 +69,12 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        $list = Category::all();
+        return view('admincp.category.form',[
+            'list'=> $list,
+            'category' => $category,
+        ]);
     }
 
     /**
@@ -77,7 +86,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $category = Category::find($id)->update([
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'status' => $data['status'],
+        ]);
+        return redirect()->back();
     }
 
     /**
@@ -88,6 +103,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Category::find($id)->delete();
+        return redirect()->back();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Country;
 
 class CountryController extends Controller
 {
@@ -23,7 +24,10 @@ class CountryController extends Controller
      */
     public function create()
     {
-    
+        $list = Country::all();
+        return view('admincp.country.form',[
+            'list'=> $list,
+        ]);
     }
 
     /**
@@ -34,7 +38,16 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $country = Country::create([
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'status' => $data['status'],
+        ]);
+        return redirect()->back();
+
+        
+        
     }
 
     /**
@@ -56,7 +69,12 @@ class CountryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $country = Country::find($id);
+        $list = Country::all();
+        return view('admincp.country.form',[
+            'list'=> $list,
+            'country' => $country,
+        ]);
     }
 
     /**
@@ -68,7 +86,13 @@ class CountryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $country = Country::find($id)->update([
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'status' => $data['status'],
+        ]);
+        return redirect()->back();
     }
 
     /**
@@ -79,6 +103,7 @@ class CountryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Country::find($id)->delete();
+        return redirect()->back();
     }
 }
