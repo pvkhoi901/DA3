@@ -21,10 +21,16 @@
                         <div class="form-group">
                             {!! Form::label('title', 'Title', []) !!}
                             {!! Form::text('title', isset($genre) ? $genre->title :'', ['class' => 'form-control', 'placeholder'=>'Nhập vào dữ liệu', 'id'=>'title_danh muc'])!!}
+                            @error('title')
+                                <span style = "color: red;">{{$message}}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             {!! Form::label('description', 'Description', []) !!}
                             {!! Form::textarea('description', isset($genre) ? $genre->description :'', ['style'=> 'resize:none', 'class' => 'form-control', 'placeholder'=>'Nhập vào dữ liệu', 'id'=>'title_danh muc'])!!}
+                            @error('description')
+                                <span style = "color: red;">{{$message}}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             {!! Form::label('active', 'Active', []) !!}

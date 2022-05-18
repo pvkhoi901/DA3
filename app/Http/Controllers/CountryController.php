@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Country;
+use App\Http\Requests\Country\StoreRequest;
+use App\Http\Requests\Country\UpdateRequest;
+
+
 
 class CountryController extends Controller
 {
@@ -36,14 +40,10 @@ class CountryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->all();
-        $country = Country::create([
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'status' => $data['status'],
-        ]);
+        $country = Country::create($data);
         return redirect()->back();
 
         
@@ -67,9 +67,8 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Country $country)
     {
-        $country = Country::find($id);
         $list = Country::all();
         return view('admincp.country.form',[
             'list'=> $list,
@@ -84,14 +83,10 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, Country $country)
     {
         $data = $request->all();
-        $country = Country::find($id)->update([
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'status' => $data['status'],
-        ]);
+        $country->update($data);
         return redirect()->back();
     }
 
@@ -101,9 +96,9 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Country $country)
     {
-        Country::find($id)->delete();
+        $country->delete();
         return redirect()->back();
     }
 }

@@ -9,6 +9,8 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\EpisodeController;
 use App\Http\Controllers\GenreController;
+use App\Models\Category;
+
 
 
 
@@ -26,7 +28,7 @@ use App\Http\Controllers\GenreController;
 
 Route::get('/', [IndexController::class, 'home'])->name('homepage'); 
 Route::get('/danh-muc', [IndexController::class, 'category'])->name('category');
-Route::get('/the-loai', [IndexController::class, 'genre'])->name('genre');
+Route::get('/the-loai', [IndexController::class, 'genre'])->name('genre'); 
 Route::get('/quoc-gia', [IndexController::class, 'country'])->name('country');
 Route::get('/phim', [IndexController::class, 'movie'])->name('movie');
 Route::get('/xem-phim', [IndexController::class, 'watch'])->name('watch');
@@ -37,6 +39,7 @@ Route::get('/episode', [IndexController::class, 'episode'])->name('episode');
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+ 
 //route admin
 Route::resource('category', CategoryController::class);
 Route::resource('genre', GenreController::class);

@@ -125,9 +125,7 @@
                               
                            </ul>
                         </li>
-                        <li><a title="Phim Lẻ" href="danhmuc.php">Phim Lẻ</a></li>
-                        <li><a title="Phim Bộ" href="danhmuc.php">Phim Bộ</a></li>
-                        <li><a title="Phim Chiếu Rạp" href="danhmuc.php">Phim Chiếu Rạp</a></li>
+                        
                      </ul>
                   </div>
                   <ul class="nav navbar-nav navbar-left" style="background:#000;">
