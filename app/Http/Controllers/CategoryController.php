@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Http\Requests\Category\StoreRequest;
+use App\Http\Requests\Category\UpdateRequest;
+
 class CategoryController extends Controller
 {
     /**
@@ -35,14 +38,13 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->all();
-        $category = Category::create([
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'status' => $data['status'],
-        ]);
+        $category = Category::create($data);
+        return redirect()->back();
+
+        
         
     }
 
@@ -63,9 +65,14 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        
+        $list = Category::all();
+        return view('admincp.category.form',[
+            'list'=> $list,
+            'category' => $category,
+        ]);
     }
 
     /**
@@ -75,9 +82,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, Category $category)
     {
-        //
+        $data = $request->all();
+        $category->update($data);
+        return redirect()->back();
     }
 
     /**
@@ -86,8 +95,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->back();
     }
 }
