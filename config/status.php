@@ -1,8 +1,6 @@
 <?php
 return[
-    'status' => '1',
+    'showLayout' => '1',
+    'hideLayout' => '0',
 ];
-
-
-
 ?>

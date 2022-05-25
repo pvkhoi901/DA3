@@ -12,7 +12,7 @@ use App\Models\Movie;
 class IndexController extends Controller
 {
     public function home(){
-        $category = Category::orderBy('id', 'DESC')->where('status',config('status.status'))->get();
+        $category = Category::orderBy('id', 'DESC')->where('status',config('status.showLayout'))->get();
         $genre = Genre::orderBy('id', 'DESC')->get();
         $country = Country::orderBy('id', 'DESC')->get();
 
@@ -23,7 +23,7 @@ class IndexController extends Controller
         ]);
     }
     public function category($slug){
-        $category = Category::orderBy('id', 'DESC')->where('status', config('status.status'))->get();
+        $category = Category::orderBy('id', 'DESC')->where('status', config('status.showLayout'))->get();
         $genre = Genre::orderBy('id', 'DESC')->get();
         $country = Country::orderBy('id', 'DESC')->get();
         $category_slug = Category::where('slug', $slug)->firstOrFail();
@@ -35,7 +35,7 @@ class IndexController extends Controller
         ]);
     }
     public function genre($slug){
-        $category = Category::orderBy('id', 'DESC')->where('status', config('status.status'))->get();
+        $category = Category::orderBy('id', 'DESC')->where('status', config('status.showLayout'))->get();
         $genre = Genre::orderBy('id', 'DESC')->get();
         $country = Country::orderBy('id', 'DESC')->get();
         $genre_slug = Genre::where('slug', $slug)->firstOrFail();
@@ -49,7 +49,7 @@ class IndexController extends Controller
         ]);
     }
     public function country($slug){
-        $category = Category::orderBy('id', 'DESC')->where('status', config('status.status'))->get();
+        $category = Category::orderBy('id', 'DESC')->where('status', config('status.showLayout'))->get();
         $genre = Genre::orderBy('id', 'DESC')->get();
         $country = Country::orderBy('id', 'DESC')->get();
         $country_slug = Country::where('slug', $slug)->firstOrFail();
