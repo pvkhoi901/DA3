@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
 {
-    protected $fillable = ['title', 'description', 'status', 'slug'];
+    protected $guarded = [];
     use HasFactory;
 }
