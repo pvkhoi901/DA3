@@ -12,7 +12,7 @@ use App\Models\Movie;
 class IndexController extends Controller
 {
     public function home(){
-        $category = Category::orderBy('id', 'DESC')->get();
+        $category = Category::orderBy('id', 'DESC')->where('status',config('status.showLayout'))->get();
         $genre = Genre::orderBy('id', 'DESC')->get();
         $country = Country::orderBy('id', 'DESC')->get();
 
@@ -22,14 +22,45 @@ class IndexController extends Controller
             'country' => $country,
         ]);
     }
-    public function category(){
-        return view('pages.category');
+    public function category($slug){
+        $category = Category::orderBy('id', 'DESC')->where('status', config('status.showLayout'))->get();
+        $genre = Genre::orderBy('id', 'DESC')->get();
+        $country = Country::orderBy('id', 'DESC')->get();
+        $category_slug = Category::where('slug', $slug)->firstOrFail();
+        return view('pages.category', [
+            'category' => $category,
+            'genre' => $genre,
+            'country' => $country,
+            'category_slug' => $category_slug,
+        ]);
     }
-    public function genre(){
-        return view('pages.genre');
+    public function genre($slug){
+        $category = Category::orderBy('id', 'DESC')->where('status', config('status.showLayout'))->get();
+        $genre = Genre::orderBy('id', 'DESC')->get();
+        $country = Country::orderBy('id', 'DESC')->get();
+        $genre_slug = Genre::where('slug', $slug)->firstOrFail();
+
+        return view('pages.genre', [
+            'category' => $category,
+            'genre' => $genre,
+            'country' => $country,
+            'genre_slug' => $genre_slug,
+
+        ]);
     }
-    public function country(){
-        return view('pages.country');
+    public function country($slug){
+        $category = Category::orderBy('id', 'DESC')->where('status', config('status.showLayout'))->get();
+        $genre = Genre::orderBy('id', 'DESC')->get();
+        $country = Country::orderBy('id', 'DESC')->get();
+        $country_slug = Country::where('slug', $slug)->firstOrFail();
+
+        return view('pages.country', [
+            'category' => $category,
+            'genre' => $genre,
+            'country' => $country,
+            'country_slug' => $country_slug,
+
+        ]);
     }
     public function movie(){
         return view('pages.movie');
