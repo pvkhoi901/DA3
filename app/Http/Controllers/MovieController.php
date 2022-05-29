@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Movie;
+use App\Models\Category;
+use App\Models\Country;
+use App\Models\Genre;
+
 
 class MovieController extends Controller
 {
@@ -23,7 +28,19 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        $category = Category::pluck('title', 'id');
+        $country = Country::pluck('title', 'id');
+        $genre = Genre::pluck('title', 'id');
+        $list = Movie::with('category', 'genre', 'country')->orderBy('id', 'DESC')->get();
+        
+    
+        return view('admincp.movie.form',[
+            'category' => $category,
+            'country' => $country,
+            'genre' => $genre,
+            'list'=> $list,
+            
+        ]);
     }
 
     /**
@@ -34,7 +51,21 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $movie = Movie::create($data);
+        
+        $get_image = $request->file('image');
+
+        if($get_image){    
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.', $get_name_image));
+            $new_image = $name_image.rand(0,999).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('uploads/movie/', $new_image);
+            $movie->image = $new_image;   
+             
+        }
+        $movie->save();
+        return redirect()->back();
     }
 
     /**
@@ -54,9 +85,19 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Movie $movie)
     {
-        //
+        $category = Category::pluck('title', 'id');
+        $country = Country::pluck('title', 'id');
+        $genre = Genre::pluck('title', 'id');
+        $list = Movie::with('category', 'genre', 'country')->orderBy('id', 'DESC')->get();
+        return view('admincp.movie.form',[
+            'category' => $category,
+            'country' => $country,
+            'genre' => $genre,
+            'list'=> $list,
+            'movie' => $movie,
+        ]);
     }
 
     /**
@@ -66,10 +107,29 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Movie $movie)
     {
-        //
+        $data = $request->only('title', 'description','slug', 'status', 'genre_id', 'category_id', 'country_id');   
+        // $movie->update($data);
+        $movie->update($data);
+
+        $get_image = $request->file('image');
+        
+        if($get_image){   
+            if(!empty($movie->image)){
+                unlink('uploads/movie/'.$movie->image);
+            }
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.', $get_name_image));
+            $new_image = $name_image.rand(0,999).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('uploads/movie/', $new_image);
+            $movie->image = $new_image;   
+             
+        }
+        $movie->save();
+        return redirect()->back();
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -77,8 +137,13 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Movie $movie)
     {
-        //
+        
+        if(!empty($movie->image)){
+            unlink('uploads/movie/'.$movie->image);
+        }
+        $movie->delete();
+        return redirect()->back();
     }
 }
