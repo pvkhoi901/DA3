@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\Movie\StoreRequest;
+use App\Http\Requests\Movie\UpdateRequest;
 
 use Illuminate\Http\Request;
 use App\Models\Movie;
@@ -49,11 +51,11 @@ class MovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->all();
         $movie = Movie::create($data);
-        
+
         $get_image = $request->file('image');
 
         if($get_image){    
@@ -64,6 +66,7 @@ class MovieController extends Controller
             $movie->image = $new_image;   
              
         }
+        
         $movie->save();
         return redirect()->back();
     }
@@ -107,12 +110,8 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Movie $movie)
+    public function update(UpdateRequest $request, Movie $movie)
     {
-        $data = $request->only('title', 'description','slug', 'status', 'genre_id', 'category_id', 'country_id');   
-        // $movie->update($data);
-        $movie->update($data);
-
         $get_image = $request->file('image');
         
         if($get_image){   
@@ -126,6 +125,11 @@ class MovieController extends Controller
             $movie->image = $new_image;   
              
         }
+        $data = $request->all();
+        $data['image'] = $new_image;
+        $movie->update($data); 
+        
+        
         $movie->save();
         return redirect()->back();
     }

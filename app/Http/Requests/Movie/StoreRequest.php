@@ -13,7 +13,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,16 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|min:4',
+            'description' => 'required',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'title.required' => 'Title không được bỏ trống',
+            'title.min' => 'Title phải trên 4 kí tự',
+            'description.required' => 'Description không được bỏ trống',
         ];
     }
 }
