@@ -54,8 +54,6 @@ class MovieController extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->all();
-        $movie = Movie::create($data);
-
         $get_image = $request->file('image');
 
         if($get_image){    
@@ -63,11 +61,10 @@ class MovieController extends Controller
             $name_image = current(explode('.', $get_name_image));
             $new_image = $name_image.rand(0,999).'.'.$get_image->getClientOriginalExtension();
             $get_image->move('uploads/movie/', $new_image);
-            $movie->image = $new_image;   
+            $data['image'] = $new_image;  
              
         }
-        
-        $movie->save();
+        $movie = Movie::create($data);
         return redirect()->back();
     }
 
@@ -112,6 +109,7 @@ class MovieController extends Controller
      */
     public function update(UpdateRequest $request, Movie $movie)
     {
+        $data = $request->all();
         $get_image = $request->file('image');
         
         if($get_image){   
@@ -122,15 +120,11 @@ class MovieController extends Controller
             $name_image = current(explode('.', $get_name_image));
             $new_image = $name_image.rand(0,999).'.'.$get_image->getClientOriginalExtension();
             $get_image->move('uploads/movie/', $new_image);
-            $movie->image = $new_image;   
+            $data['image'] = $new_image;   
              
         }
-        $data = $request->all();
-        $data['image'] = $new_image;
+        
         $movie->update($data); 
-        
-        
-        $movie->save();
         return redirect()->back();
     }
     
