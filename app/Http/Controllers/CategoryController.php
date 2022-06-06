@@ -26,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $list = Category::all();
+        $list = Category::orderBy('position', 'ASC')->get();
         return view('admincp.category.form',[
             'list'=> $list,
         ]);
@@ -68,7 +68,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         
-        $list = Category::all();
+        $list = Category::orderBy('position', 'ASC')->get();
         return view('admincp.category.form',[
             'list'=> $list,
             'category' => $category,
@@ -99,5 +99,13 @@ class CategoryController extends Controller
     {
         $category->delete();
         return redirect()->back();
+    }
+    public function resorting(Request $request){
+        $data = $request->all();
+        foreach($data['array_id'] as $key => $value){
+            $category = Category::find($value);
+            $category->position = $key;
+            $category->save();
+        }
     }
 }
