@@ -15,7 +15,7 @@ class IndexController extends Controller
         $category = Category::orderBy('position', 'ASC')->where('status',config('status.showLayout'))->get();
         $genre = Genre::orderBy('id', 'DESC')->get();
         $country = Country::orderBy('id', 'DESC')->get();
-        $category_home = Category::with('movie')->orderBy('id', 'DESC')->where('status',config('status.showLayout'))->get();
+        $category_home = Category::with('movies')->orderBy('id', 'DESC')->where('status',config('status.showLayout'))->get();
 
         return view('pages.home', [
             'category' => $category,
