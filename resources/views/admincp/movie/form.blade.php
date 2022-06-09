@@ -31,6 +31,10 @@
                             {!! Form::text('slug', isset($movie) ? $movie->title :'', ['class' => 'form-control', 'placeholder'=>'Nhập vào dữ liệu', 'id'=>'convert_slug'])!!}                         
                         </div>
                         <div class="form-group">
+                            {!! Form::label('name_eng', 'English', []) !!}
+                            {!! Form::text('name_eng', isset($movie) ? $movie->name_eng :'', ['class' => 'form-control', 'placeholder'=>'Nhập vào dữ liệu', 'id'=>'convert_slug'])!!}                         
+                        </div>
+                        <div class="form-group">
                             {!! Form::label('description', 'Description', []) !!}
                             {!! Form::textarea('description', isset($movie) ? $movie->description :'', ['style'=> 'resize:none', 'class' => 'form-control', 'placeholder'=>'Nhập vào dữ liệu', 'id'=>'title_danh muc'])!!}
                             @error('description')
@@ -52,6 +56,10 @@
                         <div class="form-group">
                             {!! Form::label('genre', 'Genre', []) !!}
                             {!! Form::select('genre_id', $genre , isset($movie) ? $movie->genre_id :'', ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('hot', 'Hot', []) !!}
+                            {!! Form::select('phim_hot', ['1'=>'Có', '0'=>'Không'], isset($movie) ? $movie->phim_hot :'', ['class' => 'form-control']) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('image', 'Image', []) !!}

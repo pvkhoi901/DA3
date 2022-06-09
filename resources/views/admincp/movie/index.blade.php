@@ -11,6 +11,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Title</th>
+                        <th scope="col">Hot</th>
                         <th scope="col">Image</th>
                         <th scope="col">Description</th>
                         <th scope="col">Slug</th>
@@ -26,6 +27,13 @@
                         <tr>
                             <th scope="row">{{$key}}</th>
                             <td>{{$cate->title}}</td>
+                            <td>
+                                @if($cate->phim_hot)
+                                    Có
+                                @else
+                                    Không
+                                @endif
+                            </td>
                             <td><img width = "60%" src="{{asset('uploads/movie/'.$cate->image)}}"></td>
                             <td>{{$cate->description}}</td>
                             <td>{{$cate->slug}}</td>
