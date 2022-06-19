@@ -1,6 +1,6 @@
 <?php
 return[
-    'hot' => '1',
+    'phimhot' => '1',
     'khongHot' => '0',
 ];
 ?>

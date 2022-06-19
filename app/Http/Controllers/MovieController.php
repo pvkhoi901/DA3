@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\Movie\StoreRequest;
 use App\Http\Requests\Movie\UpdateRequest;
+use App\Http\Requests\Movie\UpdateYearRequest;
 
 use Illuminate\Http\Request;
 use App\Models\Movie;
@@ -21,12 +22,19 @@ class MovieController extends Controller
     public function index()
     {
         $list = Movie::with('category', 'genre', 'country')->orderBy('id', 'DESC')->get();
-        
-    
         return view('admincp.movie.index',[
             'list'=> $list,
             
         ]);
+    }
+    public function updateYear(UpdateYearRequest $request){
+        $data = $request->only(['year']);
+    
+        $movie = Movie::find($request->id_movie);
+        $movie->update($data);
+        
+        // $movie->year = $data['year'];
+        // $movie->save();      
     }
 
     /**
@@ -117,7 +125,6 @@ class MovieController extends Controller
     {
         $data = $request->all();
         $get_image = $request->file('image');
-        
         if($get_image){   
             if(!empty($movie->image)){
                 unlink('uploads/movie/'.$movie->image);

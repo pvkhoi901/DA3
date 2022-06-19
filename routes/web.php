@@ -30,10 +30,10 @@ Route::get('/', [IndexController::class, 'home'])->name('homepage');
 Route::get('/danh-muc/{slug}', [IndexController::class, 'category'])->name('category');
 Route::get('/the-loai/{slug}', [IndexController::class, 'genre'])->name('genre'); 
 Route::get('/quoc-gia/{slug}', [IndexController::class, 'country'])->name('country');
-Route::get('/phim', [IndexController::class, 'movie'])->name('movie');
+Route::get('/phim/{slug}', [IndexController::class, 'movie'])->name('movie');
 Route::get('/xem-phim', [IndexController::class, 'watch'])->name('watch');
 Route::get('/episode', [IndexController::class, 'episode'])->name('episode');
-
+Route::get('/nam/{year}', [IndexController::class, 'year']);
 
 
 Auth::routes();
@@ -46,3 +46,4 @@ Route::post('resorting', [CategoryController::class, 'resorting'])->name('resort
 Route::resource('genre', GenreController::class);
 Route::resource('country', CountryController::class);
 Route::resource('movie', MovieController::class);
+Route::get('/update-year-movie', [MovieController::class, 'updateYear']);
