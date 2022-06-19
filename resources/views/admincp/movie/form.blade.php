@@ -28,12 +28,12 @@
                         </div>
                         <div class="form-group">
                             {!! Form::label('slug', 'Slug', []) !!}
-                            {!! Form::text('slug', isset($movie) ? $movie->title :'', ['class' => 'form-control', 'placeholder'=>'Nhập vào dữ liệu', 'id'=>'convert_slug'])!!}                         
+                            {!! Form::text('slug', isset($movie) ? $movie->slug :'', ['class' => 'form-control', 'placeholder'=>'Nhập vào dữ liệu', 'id'=>'convert_slug'])!!}                         
                         </div>
                         <div class="form-group">
                             {!! Form::label('name_eng', 'English', []) !!}
                             {!! Form::text('name_eng', isset($movie) ? $movie->name_eng :'', ['class' => 'form-control', 'placeholder'=>'Nhập vào dữ liệu', 'id'=>'convert_slug'])!!}                         
-                        </div>
+                        </div>      
                         <div class="form-group">
                             {!! Form::label('description', 'Description', []) !!}
                             {!! Form::textarea('description', isset($movie) ? $movie->description :'', ['style'=> 'resize:none', 'class' => 'form-control', 'placeholder'=>'Nhập vào dữ liệu', 'id'=>'title_danh muc'])!!}
@@ -44,6 +44,14 @@
                         <div class="form-group">
                             {!! Form::label('active', 'Active', []) !!}
                             {!! Form::select('status', ['1'=>'Hiển thị', '0'=>'Không hiển thị'], isset($movie) ? $movie->status :'', ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('resolution', 'Resolution', []) !!}
+                            {!! Form::select('resolution', ['0'=>'HD', '1'=>'SD', '2'=>'HDCam', '3'=>'Cam', '3'=>'FulHD'], isset($movie) ? $movie->resolution :'', ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('vietsub', 'Vietsub', []) !!}
+                            {!! Form::select('vietsub', ['0'=>'Phụ đề', '1'=>'Thuyết minh'], isset($movie) ? $movie->vietsub :'', ['class' => 'form-control']) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('category', 'Category', []) !!}
