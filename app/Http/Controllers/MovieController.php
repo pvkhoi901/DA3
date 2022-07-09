@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Movie\StoreRequest;
 use App\Http\Requests\Movie\UpdateRequest;
 use App\Http\Requests\Movie\UpdateYearRequest;
+use App\Http\Requests\Movie\UpdateTopViewRequest;
+use File;
 
 use Illuminate\Http\Request;
 use App\Models\Movie;
@@ -22,6 +24,9 @@ class MovieController extends Controller
     public function index()
     {
         $list = Movie::with('category', 'genre', 'country')->orderBy('id', 'DESC')->get();
+        $path = public_path()."/json/";
+        if(!is_dir($path)) { mkdir($path,0777,true); }
+        File::put($path.'movies.json', json_encode($list)); 
         return view('admincp.movie.index',[
             'list'=> $list,
             
@@ -35,6 +40,12 @@ class MovieController extends Controller
         
         // $movie->year = $data['year'];
         // $movie->save();      
+    }
+    public function updateTopView(UpdateTopViewRequest $request){
+        $data = $request->only(['topview']);
+    
+        $movie = Movie::find($request->id_movie);
+        $movie->update($data);      
     }
 
     /**

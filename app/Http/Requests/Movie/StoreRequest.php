@@ -26,6 +26,7 @@ class StoreRequest extends FormRequest
         return [
             'title' => 'required|min:4',
             'description' => 'required',
+            'duration' => 'required',
         ];
     }
     public function messages()
@@ -34,6 +35,8 @@ class StoreRequest extends FormRequest
             'title.required' => 'Title không được bỏ trống',
             'title.min' => 'Title phải trên 4 kí tự',
             'description.required' => 'Description không được bỏ trống',
+            'duration.required' => 'Duration không được bỏ trống',
+            
         ];
     }
 }

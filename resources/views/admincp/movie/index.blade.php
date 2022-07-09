@@ -11,6 +11,8 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Title</th>
+                        <th scope="col">Tags</th>
+                        <th scope="col">Duration</th>
                         <th scope="col">Image</th>
                         <th scope="col">Hot</th>
                         <th scope="col">Resolution</th>
@@ -23,6 +25,7 @@
                         <th scope="col">Created_at</th>
                         <th scope="col">Update_at</th>
                         <th scope="col">Year</th>
+                        <th scope="col">Top views</th>
                         <th scope="col">Manage</th>
                     </tr>
                 </thead>
@@ -31,6 +34,8 @@
                         <tr>
                             <th scope="row">{{$key}}</th>
                             <td>{{$cate->title}}</td>
+                            <td>{{$cate->tags}}</td>
+                            <td>{{$cate->duration}}</td>
                             <td><img width = "60%" src="{{asset('uploads/movie/'.$cate->image)}}"></td>
                             <td>
                                 @if($cate->phim_hot)
@@ -40,7 +45,7 @@
                                 @endif
                             </td>
                             <td>
-                                @if($cate->resolution)
+                                @if($cate->resolution==1)
                                     SD
                                 @elseif($cate->resolution==0)
                                     HD
@@ -48,8 +53,10 @@
                                     HDCam
                                 @elseif($cate->resolution==3)
                                     Cam
-                                @else
+                                @elseif($cate->resolution==4)
                                     FullHD
+                                @else
+                                    Trailer
                                 @endif
                             </td>
                             <td>
@@ -74,6 +81,9 @@
                             <td>{{$cate->updated_at}}</td>
                             <td>
                                 {!! Form::selectYear('year', 2005, 2022, isset($cate->year) ? $cate->year : ' ', ['class'=>'select-year', 'id'=>$cate->id]) !!}
+                            </td>
+                            <td>
+                                {!! Form::select('topview', ['0'=>'Ngày', '1'=>'Tuần', '2'=>'Tháng'], isset($cate->topview) ? $cate->topview :'', ['class' => 'select-topview', 'id'=>$cate->id]) !!}
                             </td>
                             <td>
                                 {!! Form::open(['method' => 'DELETE','route'=>['movie.destroy', $cate->id], 'onsubmit'=>'return confirm("Xóa?")']) !!}

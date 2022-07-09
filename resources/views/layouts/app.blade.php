@@ -107,6 +107,27 @@
         })
     </script>
     <script type="text/javascript">
+        $('.select-topview').change(function(){
+            var topview = $(this).find(':selected').val();
+            var id_movie = $(this).attr('id');
+            if(topview==0){
+                var text = 'Ngày';
+            } else if(topview == 1){
+                var text = 'Tuần';
+            } else{
+                var text = 'Tháng';
+            }
+            $.ajax({
+                url:"{{url('/update-topview-movie')}}",
+                method:"GET",
+                data:{topview:topview, id_movie:id_movie},
+                success:function(){
+                    alert('Thay đổi năm phim theo topview ' +text+ ' thành công');
+                }
+            });
+        })
+    </script>
+    <script type="text/javascript">
     $(document).ready( function () {
     $('#tablePhim').DataTable();
     } );
