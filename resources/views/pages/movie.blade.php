@@ -28,13 +28,17 @@
                         </div>
                         <div class="movie_info col-xs-12">
                            <div class="movie-poster col-md-3">
-                              <img class="movie-thumb" src="{{asset('uploads/movie/'.$movie->image)}}" alt="GÓA PHỤ ĐEN">
+                              <img class="movie-thumb" src="{{asset('uploads/movie/'.$movie->image)}}" alt="{{$movie->title}}">
+                              @if($movie->resolution != 5)
                               <div class="bwa-content">
                                  <div class="loader"></div>
                                  <a href="{{route('watch')}}" class="bwac-btn">
                                  <i class="fa fa-play"></i>
                                  </a>
                               </div>
+                              @else
+                                 <a href="#watch_trailer" style="display: block;" class="btn btn-primary watch_trailer">Xem trailer</a>
+                              @endif
                            </div>
                            <div class="film-poster col-md-9">
                               <h1 class="movie-title title-1" style="display:block;line-height:35px;margin-bottom: -14px;color: #ffed4d;text-transform: uppercase;font-size: 18px;">{{$movie->title}}</h1>
@@ -43,7 +47,7 @@
                                  <li class="list-info-group-item">
                                     <span>Trạng Thái</span> : 
                                     <span class="quality">
-                                       @if($movie->resolution)
+                                       @if($movie->resolution==1)
                                           SD
                                        @elseif($movie->resolution==0)
                                           HD
@@ -51,10 +55,13 @@
                                           HDCam
                                        @elseif($movie->resolution==3)
                                           Cam
-                                       @else
+                                       @elseif($movie->resolution==4)
                                           FullHD
+                                       @else
+                                          Trailer
                                        @endif
                                     </span>
+                                    @if($movie->resolution != 5)
                                     <span class="episode">
                                        @if($movie->vietsub)
                                           Thuyết minh                      
@@ -62,8 +69,9 @@
                                           Phụ đề
                                        @endif
                                     </span>
+                                    @endif
                                  </li>
-                                 <li class="list-info-group-item"><span>Thời lượng</span> : 133 Phút</li>
+                                 <li class="list-info-group-item"><span>Thời lượng</span> : {{$movie->duration}}</li>
                                  <li class="list-info-group-item"><span>Danh mục phim</span> : 
                                     <a href="{{route('category',$movie->category->slug)}}" rel="category tag">{{$movie->category->title}}</a>
                                  </li>
@@ -89,6 +97,40 @@
                            </article>
                         </div>
                      </div>
+
+                     <div class="section-bar clearfix">
+                        <h2 class="section-title"><span style="color:#ffed4d">Tags phim</span></h2>
+                     </div>
+                     <div class="entry-content htmlwrap clearfix">
+                        <div class="video-item halim-entry-box">
+                           <article id="post-38424" class="item-content">
+                              @if($movie->tags != NULL)
+                                 @php
+                                 $tags = array();
+                                 $tags = explode(',', $movie->tags );                              
+                                 @endphp
+                                 @foreach($tags as $key => $tag)
+                                    <a href="{{url('tag/'.$tag)}}">{{$tag}}</a>
+                                 @endforeach
+                                 
+                              @else
+                                 {{$movie->title}}
+                              @endif
+                           </article>
+                        </div>
+                     </div>
+                     @if($movie->resolution == 5)
+                     <div class="section-bar clearfix">
+                        <h2 class="section-title"><span style="color:#ffed4d">Trailer</span></h2>
+                     </div>
+                     <div class="entry-content htmlwrap clearfix">
+                        <div class="video-item halim-entry-box">
+                           <article id="watch_trailer" class="item-content">
+                              <iframe width="100%" height="315" src="https://www.youtube.com/embed/{{$movie->trailer}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                           </article>
+                        </div>
+                     </div>
+                     @endif
                   </div>
                </section>
                <section class="related-movies">
@@ -131,6 +173,6 @@
                   </div>
                </section>
             </main>
-            <aside id="sidebar" class="col-xs-12 col-sm-12 col-md-4"></aside>
+            @include('pages.include.sidebar')
          </div>
 @endsection
