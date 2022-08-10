@@ -11,6 +11,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Title</th>
+                        <th scope="col">Duration</th>
                         <th scope="col">Image</th>
                         <th scope="col">Hot</th>
                         <th scope="col">Resolution</th>
@@ -31,6 +32,7 @@
                         <tr>
                             <th scope="row">{{$key}}</th>
                             <td>{{$cate->title}}</td>
+                            <td>{{$cate->duration}}</td>
                             <td><img width = "60%" src="{{asset('uploads/movie/'.$cate->image)}}"></td>
                             <td>
                                 @if($cate->phim_hot)
@@ -40,7 +42,7 @@
                                 @endif
                             </td>
                             <td>
-                                @if($cate->resolution)
+                                @if($cate->resolution==1)
                                     SD
                                 @elseif($cate->resolution==0)
                                     HD
@@ -48,8 +50,10 @@
                                     HDCam
                                 @elseif($cate->resolution==3)
                                     Cam
-                                @else
+                                @elseif($cate->resolution==4)
                                     FullHD
+                                @else
+                                    Trailer
                                 @endif
                             </td>
                             <td>

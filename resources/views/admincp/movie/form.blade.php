@@ -27,13 +27,28 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            {!! Form::label('duration', 'Duration', []) !!}
+                            {!! Form::text('duration', isset($movie) ? $movie->duration :'', ['class' => 'form-control', 'placeholder'=>'Nhập vào dữ liệu'])!!}
+                            @error('duration')
+                                <span style = "color: red;">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             {!! Form::label('slug', 'Slug', []) !!}
                             {!! Form::text('slug', isset($movie) ? $movie->slug :'', ['class' => 'form-control', 'placeholder'=>'Nhập vào dữ liệu', 'id'=>'convert_slug'])!!}                         
                         </div>
                         <div class="form-group">
                             {!! Form::label('name_eng', 'English', []) !!}
                             {!! Form::text('name_eng', isset($movie) ? $movie->name_eng :'', ['class' => 'form-control', 'placeholder'=>'Nhập vào dữ liệu', 'id'=>'convert_slug'])!!}                         
-                        </div>      
+                        </div>     
+                        <div class="form-group">
+                            {!! Form::label('link', 'Link phim', []) !!}
+                            {!! Form::text('link', isset($movie) ? $movie->link :'', ['class' => 'form-control', 'placeholder'=>'Nhập link phim'])!!}                         
+                        </div> 
+                        <div class="form-group">
+                            {!! Form::label('trailer', 'Trailer', []) !!}
+                            {!! Form::text('trailer', isset($movie) ? $movie->trailer :'', ['class' => 'form-control', 'placeholder'=>'Nhập vào dữ liệu'])!!}                         
+                        </div>
                         <div class="form-group">
                             {!! Form::label('description', 'Description', []) !!}
                             {!! Form::textarea('description', isset($movie) ? $movie->description :'', ['style'=> 'resize:none', 'class' => 'form-control', 'placeholder'=>'Nhập vào dữ liệu', 'id'=>'title_danh muc'])!!}
@@ -42,12 +57,16 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            {!! Form::label('tags', 'Tags', []) !!}
+                            {!! Form::textarea('tags', isset($movie) ? $movie->tags :'', ['style'=> 'resize:none', 'class' => 'form-control', 'placeholder'=>'Nhập vào dữ liệu'])!!}
+                        </div>
+                        <div class="form-group">
                             {!! Form::label('active', 'Active', []) !!}
                             {!! Form::select('status', ['1'=>'Hiển thị', '0'=>'Không hiển thị'], isset($movie) ? $movie->status :'', ['class' => 'form-control']) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('resolution', 'Resolution', []) !!}
-                            {!! Form::select('resolution', ['0'=>'HD', '1'=>'SD', '2'=>'HDCam', '3'=>'Cam', '3'=>'FulHD'], isset($movie) ? $movie->resolution :'', ['class' => 'form-control']) !!}
+                            {!! Form::select('resolution', ['0'=>'HD', '1'=>'SD', '2'=>'HDCam', '3'=>'Cam', '4'=>'FulHD', '5'=>'Trailer'], isset($movie) ? $movie->resolution :'', ['class' => 'form-control']) !!}
                         </div>
                         <div class="form-group">
                             {!! Form::label('vietsub', 'Vietsub', []) !!}
@@ -62,7 +81,7 @@
                             {!! Form::select('country_id', $country , isset($movie) ? $movie->country_id :'', ['class' => 'form-control']) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('genre', 'Genre', []) !!}
+                            {!! Form::label('genre', 'Genre', []) !!} <br>
                             {!! Form::select('genre_id', $genre , isset($movie) ? $movie->genre_id :'', ['class' => 'form-control']) !!}
                         </div>
                         <div class="form-group">

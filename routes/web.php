@@ -12,28 +12,16 @@ use App\Http\Controllers\GenreController;
 use App\Models\Category;
 
 
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-
 Route::get('/', [IndexController::class, 'home'])->name('homepage'); 
 Route::get('/danh-muc/{slug}', [IndexController::class, 'category'])->name('category');
 Route::get('/the-loai/{slug}', [IndexController::class, 'genre'])->name('genre'); 
 Route::get('/quoc-gia/{slug}', [IndexController::class, 'country'])->name('country');
 Route::get('/phim/{slug}', [IndexController::class, 'movie'])->name('movie');
-Route::get('/xem-phim', [IndexController::class, 'watch'])->name('watch');
+Route::get('/xem-phim/{slug}', [IndexController::class, 'watch'])->name('watch');
 Route::get('/episode', [IndexController::class, 'episode'])->name('episode');
 Route::get('/nam/{year}', [IndexController::class, 'year']);
+Route::get('/tag/{tag}', [IndexController::class, 'tag']);
+Route::get('tim-kiem', [IndexController::class, 'timKiem'])->name('tim-kiem');
 
 
 Auth::routes();
@@ -47,3 +35,4 @@ Route::resource('genre', GenreController::class);
 Route::resource('country', CountryController::class);
 Route::resource('movie', MovieController::class);
 Route::get('/update-year-movie', [MovieController::class, 'updateYear']);
+Route::get('/update-topview-movie', [MovieController::class, 'updateTopView']);
