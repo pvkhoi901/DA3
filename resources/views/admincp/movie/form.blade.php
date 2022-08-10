@@ -40,7 +40,11 @@
                         <div class="form-group">
                             {!! Form::label('name_eng', 'English', []) !!}
                             {!! Form::text('name_eng', isset($movie) ? $movie->name_eng :'', ['class' => 'form-control', 'placeholder'=>'Nhập vào dữ liệu', 'id'=>'convert_slug'])!!}                         
-                        </div>      
+                        </div>     
+                        <div class="form-group">
+                            {!! Form::label('link', 'Link phim', []) !!}
+                            {!! Form::text('link', isset($movie) ? $movie->link :'', ['class' => 'form-control', 'placeholder'=>'Nhập link phim'])!!}                         
+                        </div> 
                         <div class="form-group">
                             {!! Form::label('trailer', 'Trailer', []) !!}
                             {!! Form::text('trailer', isset($movie) ? $movie->trailer :'', ['class' => 'form-control', 'placeholder'=>'Nhập vào dữ liệu'])!!}                         
@@ -77,7 +81,7 @@
                             {!! Form::select('country_id', $country , isset($movie) ? $movie->country_id :'', ['class' => 'form-control']) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('genre', 'Genre', []) !!}
+                            {!! Form::label('genre', 'Genre', []) !!} <br>
                             {!! Form::select('genre_id', $genre , isset($movie) ? $movie->genre_id :'', ['class' => 'form-control']) !!}
                         </div>
                         <div class="form-group">

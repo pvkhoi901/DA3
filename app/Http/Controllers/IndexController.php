@@ -153,8 +153,21 @@ class IndexController extends Controller
             'phimhot_sidebar' => $phimhot_sidebar,
         ]);
     }
-    public function watch(){
-        return view('pages.watch');
+    public function watch($slug){
+        $phimhot_sidebar = Movie::where('phim_hot', config('phim.phimhot'))->where('status',config('status.showLayout'))->orderBy('updated_at', 'DESC')->take('5')->get();
+        $category = Category::orderBy('position', 'ASC')->where('status', config('status.showLayout'))->get();
+        $genre = Genre::orderBy('id', 'DESC')->get();
+        $country = Country::orderBy('id', 'DESC')->get();
+        $movie = Movie::with('category', 'country', 'genre')->where('slug', $slug)->where('status', config('status.showLayout'))->firstOrFail();
+        $related = Movie::with('category', 'country', 'genre')->where('category_id', $movie->category->id)->orderBy(DB::raw('RAND()'))->whereNotIn('slug', [$slug])->get();
+        return view('pages.watch',  [
+            'category' => $category,
+            'genre' => $genre,
+            'country' => $country,
+            'related' => $related,
+            'movie' => $movie,
+            'phimhot_sidebar' => $phimhot_sidebar,
+        ]);
     }
     public function episode(){
         return view('pages.episode');

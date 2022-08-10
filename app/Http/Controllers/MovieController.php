@@ -58,6 +58,7 @@ class MovieController extends Controller
         $category = Category::pluck('title', 'id');
         $country = Country::pluck('title', 'id');
         $genre = Genre::pluck('title', 'id');
+        $list_genre = Genre::all();
         $list = Movie::with('category', 'genre', 'country')->orderBy('id', 'DESC')->get();
         
     
@@ -65,6 +66,7 @@ class MovieController extends Controller
             'category' => $category,
             'country' => $country,
             'genre' => $genre,
+            'list_genre' => $list_genre,
             'list'=> $list,
             
         ]);
